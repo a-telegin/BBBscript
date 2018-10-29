@@ -45,7 +45,9 @@ sleep 4
 fastboot devices
 fastboot flash rootfs rootfs.img
 sleep 10
+#### Sending 'Ctrl-C'
 echo $'\cC'
+#### Sending 'run bootcmd'
 echo 'run bootcmd' > /dev/ttyUSB0
 
 cd - &>/dev/null
