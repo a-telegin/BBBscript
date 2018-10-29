@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -e
 
@@ -46,7 +46,7 @@ bbpath=../busybox
 
 git tag | grep $VERT
 
-if [ ! -d bbpath ]; then
+if [ ! -d $bbpath ]; then
 	echo 'Error. Cannot find busybox.' 
 	exit 23
 fi
