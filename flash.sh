@@ -46,5 +46,6 @@ fastboot devices
 fastboot flash rootfs rootfs.img
 sleep 10
 echo $'\cC'
+echo 'run bootcmd' > /dev/ttyUSB0
 
 cd - &>/dev/null

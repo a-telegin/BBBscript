@@ -63,7 +63,9 @@ file tcpdump
 arm-linux-gnueabihf-readelf -d tcpdump | grep -i needed
 
 echo "Tcpdump will be installed to $PREFIX/sbin"
-make install 
+make install
+
+cd - &> /dev/null 
 echo 'Done.'
 
 
