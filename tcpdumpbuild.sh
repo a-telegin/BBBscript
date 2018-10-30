@@ -2,14 +2,26 @@
 
 set -e
 
+export PATH=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin:$PATH
+#
+export CROSS_COMPILE="ccache arm-linux-gnueabihf-"
+export ARCH=arm
+#
+###########################################################
+libpcapbuild(){
 if [ ! -d libpcap ]; then 
 	echo 'Error cannot find libpcap'
 	exit 20
-else
-	cd libpcap/
 fi
 
-export PATH=/opt/gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf/bin:$PATH
+bbpath=/home/andrey/BBB/busybox
+
+if [ ! -d $bbpath ]; then
+	echo 'Error. Cannot find busybox.' 
+	exit 21
+fi
+
+cd libpcap/
 
 make distclean
 
@@ -25,37 +37,39 @@ make -j4
 
 if [ ! -f libpcap.a ]; then
 	echo 'Error. Cannot find libpcap.a' 
-	exit 21
+	exit 22
 fi
 
 echo 'Done.'	
 file libpcap.a
 
 cd - &> /dev/null
+}
+
+##############################################################
+
+t-dumpbuild(){
 
 if [ ! -d tcpdump ]; then
 	echo 'Error. Cannot find tcpdump.'
-	exit 22
+	exit 23
 fi
 
 cd tcpdump/
-
+echo 'Making it clean...'
+make distclean
 
 VERT=tcpdump-4.9.2
-bbpath=../busybox
+bbpath=/home/andrey/BBB/busybox
 
 git tag | grep $VERT
-
-if [ ! -d $bbpath ]; then
-	echo 'Error. Cannot find busybox.' 
-	exit 23
-fi
+git checkout $VERT
 
 export PREFIX=$bbpath/_install/usr
 ./configure --host=arm-linux-gnueabihf --prefix=$PREFIX
 
 make -j4
-if [ ! -f tcpdump]; then
+if [ ! -f tcpdump ]; then
 	echo 'Error. Cannot find tcpdump'
 	exit 24
 fi
@@ -66,8 +80,14 @@ echo "Tcpdump will be installed to $PREFIX/sbin"
 make install
 
 cd - &> /dev/null 
-echo 'Done.'
 
+echo 'Done.'
+}
+############################################################
+## entry point
+
+libpcapbuild
+t-dumpbuild
 
 
 
