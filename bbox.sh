@@ -32,8 +32,8 @@ export CROSS_COMPILE="ccache arm-linux-gnueabihf-"
 cd $1 &>/dev/null
 
 echo 'Making it clean...'
-#make mrproper
-make distclean
+make mrproper
+#make distclean
 
 if [ -d _install ]; then
 	echo 'Deleting _install folder...'	
