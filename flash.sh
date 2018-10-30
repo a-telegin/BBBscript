@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 set -e
+IMGSIZE=150000000
 
 ######################
 
@@ -40,13 +41,13 @@ sleep 5
 echo $'\x20' > /dev/ttyUSB0
 sleep 1
 #### Sending 'fastboot 0'
-echo 'fastboot 0' > > /dev/ttyUSB0
+echo 'fastboot 0' > /dev/ttyUSB0
 sleep 4
 fastboot devices
 fastboot flash rootfs rootfs.img
 sleep 10
 #### Sending 'Ctrl-C'
-echo $'\cC'
+echo $'\cC' > /dev/ttyUSB0
 #### Sending 'run bootcmd'
 echo 'run bootcmd' > /dev/ttyUSB0
 

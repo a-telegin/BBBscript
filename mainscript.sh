@@ -2,8 +2,6 @@
 
 set -e
 
-IMGSIZE=150000000
-
 ######################
 
 #ubootpath=u-boot/
@@ -19,6 +17,8 @@ busyboxpath=busybox/
 ./bbox.sh $busyboxpath
 
 ./populate.sh $busyboxpath $linuxpath
+
+./tcpdumpbuild.sh
 
 ./flash.sh
 
