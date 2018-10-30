@@ -38,7 +38,7 @@ if [ -d $bbpath/_install ]; then
 	rm -rf $bbpath/_install
 fi
 
-mkdir -p $bbpath/_install/{boot,dev,etc\/init.d,lib,proc,root,sys\/kernel\/debug,tmp}
+mkdir -p $bbpath/_install/{boot,dev,etc\/init.d,lib,proc,root,sys\/kernel\/debug,tmp,usr}
 
 fillrcs(){
 cat > $bbpath/_install/etc/init.d/rcS <<'EOF'
